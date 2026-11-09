@@ -1,0 +1,539 @@
+:root {
+    --forest: #102f2a;
+    --turquoise: #39c6a5;
+    --green: #147d70;
+    --coral: #ff8066;
+    --solar: #ffd166;
+    --text: #f1f7f4;
+    --muted: #a9c2ba;
+    --panel: rgba(22, 61, 53, 0.78);
+    --border: rgba(110, 219, 190, 0.20);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: radial-gradient(ellipse at 85% 8%, rgba(20, 125, 112, 0.32), transparent 35%),
+        radial-gradient(ellipse at 8% 45%, rgba(57, 198, 165, 0.09), transparent 35%),
+        var(--forest);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;    
+    line-height: 1.5;
+}
+
+button, input {
+    font: inherit;
+}
+
+button, a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible {
+    outline: 2px solid var(--solar);
+    outline-offset: 4px;
+}
+
+.apenas {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+.aplicativa {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100% - 40px));
+    margin: 0;
+}
+
+.barra-topo {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    
+}
+
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.marca-icone {
+    color: var(--turquoise);
+    font-size: 2rem;
+}
+
+.marca-raio {
+    color: var(--turquoise);
+}
+
+.status-aovivo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-family: 0.8rem;    
+}
+
+.status-dados {
+    width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background: var(--turquoise);
+    box-shadow: 0 0 12px rgba(57, 198, 165, 0.7);
+    animation: pulse 2s infinite;
+}
+
+
+.introducao {   
+    padding: 65px 0 38px;
+    max-width: 760px;
+}
+
+.tempo-real {
+    color: var(--turquoise);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.introducao h1 {
+    margin-top: 14px;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    line-height: 1.08;
+    letter-spacing: -2px;
+}
+
+.introducao h1 span {
+    color: var(--turquoise);
+}
+
+.texto-introducao {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+.pesquisa-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(650px, 100%);
+    margin-top: 28px;
+    padding: 7px;
+    background: rgba(6, 30, 26, 0.78);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.pesquisa-icone {
+    padding-left: 12px;
+    color: var(--turquoise);
+    font-size: 1.8rem;
+}
+
+.pesquisa-form input {
+    width: 100%;
+    min-width: 0;
+    color: var(--text);
+    background: transparent;
+    border: 0;
+    outline: none;
+    padding: 12px 0;
+}
+
+.pesquisa-form input::placeholder {
+    color: #91aaa2;
+}
+
+.pesquisa-form input:focus-visible {
+    outline: none;
+}
+
+.pesquisa-form:focus-within {
+    outline: 2px solid var(--solar);
+    outline-offset: 3px;
+}
+
+.pesquisa-form button {
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 11px;
+    padding: 13px 19px;
+    color: var(--forest);
+    background: var(--coral);
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.pesquisa-form button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.pesquisa-form button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+
+.pesquisa-mensagem {
+    min-height: 24px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.pesquisa-mensagem.error {
+    color: var(--coral);
+}
+
+.painel {    
+    background: linear-gradient(135deg, rgba(30, 88, 74, 0.85), rgba(12, 46, 40, 0.88));
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(12px);
+}
+
+.menu-atual{    
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 28px;
+    padding: clamp(24px, 4vw, 42px);
+    animation: rise-in 0.65s ease both;
+}
+
+.menu-atual::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: -150px;
+    right: -70px;
+    border-radius: 50%;
+    background: rgba(57, 198, 165, 0.10);
+    filter: blur(12px);
+    pointer-events: none;
+}
+
+.linha-local {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.span-local {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: rgba(57, 198, 165, 0.12);
+    color: var(--turquoise);
+    font-size: 1.7rem;
+}
+
+.linha-local h2 {
+    font-size: 1.3rem;
+}
+
+.linha-local p {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.linha-temperatura {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 32px;
+}
+
+.tempo-icone {
+    color: var(--solar);
+    font-size: clamp(4rem, 8vw, 6.5rem);
+    line-height: 1;
+    filter: drop-shadow(0 0 22px rgba(255, 209, 102, 0.2));
+    animation: float 4s ease-in-out infinite;
+}
+
+.temperatura {
+    font-size: clamp(4rem, 8vw, 6rem);
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: -5px;
+}
+
+.descricao-tempo {
+    margin-top: 9px;
+    color: var(--turquoise);
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+.sensacao-termica {
+    margin-top: 26px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.sensacao-termica strong {
+    color: var(--text);
+}
+
+.tempo-detalhes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-self: end;
+    gap: 10px;
+}
+
+
+.cartao-detalhes {
+    min-width: 0;
+    padding: 16px 12px;
+    background: rgba(4, 33, 28, 0.35);
+    border: 1px solid rgba(110, 219, 190, 0.13);
+    border-radius: 16px;
+}
+
+.detalhe-icone {
+    color: var(--solar);
+    font-size: 1.45rem;
+}
+
+.cartao-detalhes p {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.77rem;
+}
+
+.cartao-detalhes strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.05rem;
+    overflow-wrap: anywhere;
+}
+
+.secao-previsao, .secao-mundo {   
+    padding-top: 65px;
+}
+
+.secao-cabecalho {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 23px;
+}
+
+.secao-cabecalho h2 {
+    margin-top: 6px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.7px;
+}
+
+.secao-simbolo {
+    color: var(--turquoise);
+    font-size: 2rem;
+}
+
+.grade-previsao {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.forecast-card {
+    padding: 23px 12px;
+    text-align: center;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    animation: rise-in 0.55s ease both;
+}
+.forecast-card:hover, .world-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(57, 198, 165, 0.7);
+    background: rgba(30, 88, 74, 0.92);
+}
+.forecast-day {
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.forecast-icon {
+    display: block;
+    margin: 18px 0;
+    color: var(--solar);
+    font-size: 2.4rem;
+    line-height: 1.2;
+}
+.forecast-description {
+    min-height: 36px;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+.forecast-temps {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 13px;
+    font-size: 0.95rem;
+}
+.forecast-temps strong {
+    color: var(--text);
+}
+.forecast-temps span {
+    color: var(--muted);
+}
+.rain-chance {
+    margin-top: 12px;
+    color: var(--turquoise);
+    font-size: 0.75rem;
+}
+
+.marca-mundo {
+    padding: 7px 11px;
+    color: var(--turquoise);
+    background: rgba(57, 198, 165, 0.10);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.grade.mundo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.world-card {
+    min-width: 0;
+    padding: 22px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    animation: rise-in 0.55s ease both;
+}
+
+.world-card h3 {
+    overflow-wrap: anywhere;
+    font-size: 1rem;
+}
+
+.world-country {
+    min-height: 22px;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 0.76rem;
+}
+
+.world-weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.world-icon {
+    color: var(--solar);
+    font-size: 2.5rem;
+}
+
+.world-temp {
+    font-size: 1.9rem;
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+.world-description {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.world-action {
+    display: block;
+    margin-top: 15px;
+    color: var(--turquoise);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+
+.silenciado {
+    grid-column: 1 / -1;
+    padding: 20px 0;
+    color: var(--muted);
+}
+
+.footer {
+    margin-top: 80px;
+    padding: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.marca-footer {
+    color: var(--text);
+    font-size: 1rem;
+}
+
+
+.data-credito a {
+    color: var(--turquoise);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+
+
