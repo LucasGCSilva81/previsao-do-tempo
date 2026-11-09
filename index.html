@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102F2A">
+    <meta name="description" content="WeatherVerse: previsão do tempo global com animações e dados meteorológicos.">
+    <link rel="stylesheet" href="./style.css">
+    <title>WeatherVerse | Clima pelo mundo</title>
+</head>
+
+<body>
+    <div class="tempo-cena" id="tempoCena" aria-hidden="true">
+        <div class="sol"></div>
+        <div class="nuvem nuvem-um"></div>
+        <div class="nuvem nuvem-dois"></div>
+        <div class="chuva"></div>
+        <div class="raio"></div>
+    </div>
+
+    <div class="aplicativa">
+
+        <header class="barra-topo">
+
+            <a href="#" class="marca" aria-label="ClimaTempo - início">
+                <span class="marca-icone">◉</span>
+                <span>Clima<span class="marca-raio">pelo Mundo</span></span>
+            </a>
+            <span class="status-aovivo">
+                <span class="status-dados"></span>Dados metereológicos</span>
+        </header>
+
+        <main>
+
+            <section class="introducao">
+                <p class="tempo-real">SEU MUNDO EM TEMPO REAL</p>
+                <h1>O clima muda.<br> <span>Explore cada momento.</span></h1>
+                <p class="texto-introducao">Descubra as condições do tempo em qualquer lugar do planeta.</p>
+
+                <form class="pesquisa-fomr" id="pesquisaForm">
+
+                    <span class="pesquisa-icone" aria-hidden="true">⌕</span>
+                    <label class="apenas" for="entradaCidade">Digite uma cidade</label>
+                    <input id="entradaCidade" type="search" placeholder="Digite uma cidade, ex: Nova Iorque"
+                        autocomplete="off" required>
+                    <button type="submit" id="botao-procura">
+                        Explorar <span aria-hidden="true">↗</span></button>
+                </form>
+                <p class="procura-mensagem" id="procuraMensagem" role="status" aria-live="polite">
+                    Carregando condições meteorológicas...
+                </p>
+            </section>
+
+            <section class="tempo-atual painel" id="tempoAtual" aria-labelledby="titulo-atual">
+                <div class="menu-atual">
+
+                    <div class="linha-local">
+                        <span class="span-local">⌖</span>
+                        <div>
+                            <h2 id="tituloAtual">Carregando cidade...</h2>
+                            <p id="dataAtual">Consultando previsão</p>
+                        </div>
+                    </div>
+
+                    <div class="linha-temperatura">
+
+                        <span class="tempo-icone" id="iconeAtual" aria-hidden="true">☀</span>
+                        <div>
+                            <p class="temperatura" id="temperaturaAtual">--°</p>
+                            <p class="descricao-tempo" id="tempoDescricao">Aguardando dados</p>
+                        </div>
+                    </div>
+                    <p class="sensacao-termica">Sensação térmica de <strong id="sensacaoTermica">--°C</strong></p>
+                </div>
+
+                <div class="tempo-detalhes">
+                    <article class="cartao-detalhes">
+                        <span class="detalhe-icone">◌</span>
+                        <p>Umidade</p>
+                        <strong id="humidade">--%</strong>
+                    </article>
+
+                    <article class="cartao-detalhes">
+                        <span class="detalhe-icone">➤</span>
+                        <p>Vento</p>
+                        <strong id="vento">-- km/h</strong>
+                    </article>
+
+                    <article class="cartao-detalhes">
+                        <span class="detalhe-icone">⌁</span>
+                        <p>Chuva</p>
+                        <strong id="atencao">-- mm</strong>
+                    </article>
+
+                </div>
+            </section>
+
+            <section class="secao-previsao">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <p class="tempo-real">OLHANDO ADIANTE</p>
+                        <h2>Próximos cinco dias</h2>
+                    </div>
+                    <span class="secao-simbolos">↗</span>
+                </div>
+                <div class="grade-previsao" id="gradePrevisao" aria-live="polite">
+                    <p class="silenciado">Preparando previsão...</p>
+                </div>
+            </section>
+
+            <section class="secao-mundo">
+                <div class="secao-cabecalho">
+                    <div>
+                        <p class="tempo-real">UM PLANETA, MUITOS CLIMAS</p>
+                        <h2>Clima pelo Mundo</h2>
+                    </div>
+                    <span class="marca-mundo">4 DESTINOS</span>
+                </div>
+                <div class="grade-mundo" id="gradeMundo">
+                    <p class="silenciado">Consultando cidades...</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <a href="#" class="marca marca-footer">Clima <span class="marca-raio">pelo Mundo</span></a>
+            <p>Feito para explorar o mundo, um dia de cada vez.</p>
+            <p class="data-credito">Dados metereológicos: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p>
+        </footer>
+    </div>
+
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
