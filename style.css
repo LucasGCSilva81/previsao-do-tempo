@@ -694,6 +694,153 @@ input:focus-visible {
     91%, 95% { opacity: 1;}
 }
 
+@media (max-width: 850px) {
+    .tempo-atual {
+        grid-template-columns: 1fr;
+    }
+
+    .tempo-detalhes {
+        align-items: auto;
+    }
+
+    .grade.mundo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grade-previsao {
+        gap: 8px;
+    }
+
+    .forecast-card {
+        padding: 18px 7px;
+    }
+}
+
+
+@media (max-width: 560px) {
+    .aplicativa {
+        width: calc(100% - 28%);
+    }
+
+    .barra-topo {
+        min-height: 72px;
+    }
+
+    .marca {
+        font-size: 1.05rem;
+    }
+
+    .status-aovivo {
+        max-width: 130px;
+        font-size: 0.68rem;
+    }
+
+    .introducao {
+        padding-top: 45px;
+    }
+
+    .introducao h1 {
+        letter-spacing: -1.3px;
+    }
+
+    .pesquisa-form {
+        gap: 8px;
+    }
+
+    .pesquisa-form button {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .pesquisa-icone {
+        padding-left: 6px;
+    }
+
+    .tempo-atual {
+        padding: 22px 16px;
+        gap: 28px;
+        border-radius: 20px;
+    }
+
+    .linha-temperatura {
+        gap: 14px;
+    }
+
+    .temperatura {
+        font-size: 4.2rem;
+    }
+
+    .tempo-icone {
+        font-size: 4.3rem;
+    }
+
+    .tempo-detalhes {
+        gap: 7px;
+    }
+
+    .cartao-detalhes {
+        padding: 12px 8px;
+    }
+
+    .cartao-detalhes p {
+        font-size: 0.7rem;
+    }
+
+    .cartao-detalhes strong {
+        font-size: 0.9rem;
+    }
+
+    .grade-previsao {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .forecast-card:last-child {
+        grid-column: 1 / -1;
+    } 
+    
+    .forecast-card {
+        padding: 18px 12px;
+    }
+
+    .grade.mundo {
+        gap: 10px;
+    } 
+
+    .world-card {
+        padding: 16px 12px;
+    }
+
+    .world-temp {
+        font-size: 1.6rem;
+    }
+
+    .world-icon {
+        font-size: 2rem;
+    }
+
+    .secao-cabecalho h2 {
+        font-size: 1.5rem;
+    }
+
+    .footer {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 55px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+
 
 
 
