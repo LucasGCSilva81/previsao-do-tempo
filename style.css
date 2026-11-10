@@ -27,15 +27,17 @@ body {
         radial-gradient(ellipse at 8% 45%, rgba(57, 198, 165, 0.09), transparent 35%),
         var(--forest);
     color: var(--text);
-    font-family: Inter, "Segoe UI", Arial, sans-serif;    
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
     line-height: 1.5;
 }
 
-button, input {
+button,
+input {
     font: inherit;
 }
 
-button, a {
+button,
+a {
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -44,7 +46,9 @@ a {
     text-decoration: none;
 }
 
-button:focus-visible, a:focus-visible, input:focus-visible {
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
     outline: 2px solid var(--solar);
     outline-offset: 4px;
 }
@@ -75,7 +79,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border);
-    
+
 }
 
 
@@ -102,7 +106,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     align-items: center;
     gap: 9px;
     color: var(--muted);
-    font-family: 0.8rem;    
+    font-family: 0.8rem;
 }
 
 .status-dados {
@@ -115,7 +119,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 
-.introducao {   
+.introducao {
     padding: 65px 0 38px;
     max-width: 760px;
 }
@@ -220,7 +224,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     color: var(--coral);
 }
 
-.painel {    
+.painel {
     background: linear-gradient(135deg, rgba(30, 88, 74, 0.85), rgba(12, 46, 40, 0.88));
     border: 1px solid var(--border);
     border-radius: 26px;
@@ -228,7 +232,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     backdrop-filter: blur(12px);
 }
 
-.menu-atual{    
+.menu-atual {
     position: relative;
     overflow: hidden;
     display: grid;
@@ -350,7 +354,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     overflow-wrap: anywhere;
 }
 
-.secao-previsao, .secao-mundo {   
+.secao-previsao,
+.secao-mundo {
     padding-top: 65px;
 }
 
@@ -388,11 +393,14 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     transition: transform 0.25s, border-color 0.25s, background 0.25s;
     animation: rise-in 0.55s ease both;
 }
-.forecast-card:hover, .world-card:hover {
+
+.forecast-card:hover,
+.world-card:hover {
     transform: translateY(-5px);
     border-color: rgba(57, 198, 165, 0.7);
     background: rgba(30, 88, 74, 0.92);
 }
+
 .forecast-day {
     color: var(--muted);
     font-size: 0.82rem;
@@ -406,11 +414,13 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     font-size: 2.4rem;
     line-height: 1.2;
 }
+
 .forecast-description {
     min-height: 36px;
     color: var(--muted);
     font-size: 0.75rem;
 }
+
 .forecast-temps {
     display: flex;
     justify-content: center;
@@ -418,12 +428,15 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     margin-top: 13px;
     font-size: 0.95rem;
 }
+
 .forecast-temps strong {
     color: var(--text);
 }
+
 .forecast-temps span {
     color: var(--muted);
 }
+
 .rain-chance {
     margin-top: 12px;
     color: var(--turquoise);
@@ -534,6 +547,153 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     text-decoration: underline;
     text-underline-offset: 3px;
 }
+
+
+.tempo-cena {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.tempo-cena.active {
+    opacity: 1;
+}
+
+.sol {
+    position: absolute;
+    top: 13%;
+    right: 12%;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.04) 60%, transparent 72%);
+    animation: sun-glow 5s ease-in-out infinite;
+}
+
+.nuvem {
+    position: absolute;
+    width: 150px;
+    height: 38px;
+    border-radius: 50px;
+    background: rgba(170, 205, 196, 0.09);
+    filter: blur(1px);
+    animation: drift 32s linear infinite;
+}
+
+.nuvem::before, .nuvem::after {
+    content: "";
+    position: absolute;
+    bottom: 12px;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.nuvem::before {
+    left: 25px;
+    width: 65px;
+    height: 65px;
+}
+
+.nuvem::after {
+    left: 72px;
+    width: 48px;
+    height: 48px;
+}
+
+.nuvem-um {
+    top: 18%;
+    left: -180px;
+}
+
+.nuvem-dois {
+    top: 39%;
+    left: -260px;
+    transform: scale(0.7);
+    animation-duration: 43s;
+    animation-delay: -16s;
+}
+
+.chuva {
+    position: absolute;
+    inset: -20% 0 0;
+    opacity: 0;
+    background-image: repeating-linear-gradient(105deg, transparent 0 35px, rgba(130, 220, 228, 0.27) 36px 38px, transparent 39px 62px);
+    background-size: 100px 120px;
+}
+
+.raio {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: rgba(214, 235, 255, 0.12);
+}
+
+.tempo-cena.weather-sunny .sun, .tempo-cena.weather-clear .sun {
+    opacity: 1;
+}
+
+.tempo-cena.weather-cloudy .nuvem, .tempo-cena.weather-overcast .nuvem {
+    background: rgba(178, 204, 201, 0.16);
+}
+
+.tempo-cena.weather-rain .chuva, .tempo-cena.weather-drizzle .chuva, 
+.tempo-cena.weather-thunderstorm .chuva {
+    opacity: 1;
+    animation: rainfall 0.55s linear infinite;
+}
+
+.tempo-cena.weather-snow .chuva {
+    opacity: 0.6;
+    background-image: radial-gradient(circle, rgba(240, 250, 255, 0.65) 1px, transparent 2px);
+    background-size: 35px 42px;
+    animation: snowfall 4s linear infinite;
+}
+
+
+@keyframes pulse {
+    50% { opacity: 0; transform: translateY(14px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes rise-in {
+    from { opacity: 0; transform: translateY(14px);}
+    to { opacity: 1; transform: translateY(0);} 
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0);}
+    50% {transform:translateY(-8px) }    
+}
+
+@keyframes sun-glow {
+    0%, 100% { transform: scale(1); opacity: 0.65; }
+    50% { transform: scale(1.12); opacity: 1;}
+}
+
+@keyframes drift {
+    from { translate: 0 0; } 
+    to { translate: calc(100vw + 400px) 0;}
+}
+
+@keyframes rainfall {
+    from { background-position: 0 0; }
+    to { background-position: -25px 120px;}
+}
+
+@keyframes snowfall {
+    from { background-position: 0- 50px; }
+    to { background-position: 25px 100px;}
+}
+
+@keyframes lightning-flash {
+    0%, 90%, 93%, 96%, 100% { opacity: 0; }
+    91%, 95% { opacity: 1;}
+}
+
 
 
 
