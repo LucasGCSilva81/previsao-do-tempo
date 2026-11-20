@@ -100,7 +100,7 @@ function getWeatherInfo(code, isDay = 1) {
         return weatherTypes.snow;
     }
 
-    if ([95, 96, 9].includes(code)) {
+    if ([95, 96, 99].includes(code)) {
         return weatherTypes.thunderstorm;
     }
 
@@ -130,14 +130,17 @@ function setMessage(message, isError = false) {
     elements.message.classList.toggle("error", isError);
 }
 
-function setLoading(isLoaging) {
-    elements.button.disable = isLoading;
-    elements.button.textContent = isLoaging ? "Buscando..." : "Explorar ↗";
-    elements.input.disable = isLoaging;
+function setLoading(isLoading) {
+    elements.button.disabled = isLoading;
+    elements.button.textContent = isLoading
+        ? "Buscando..."
+        : "Explorar ↗";
+
+    elements.input.disabled = isLoading;
 }
 
 function setScene(condition) {
-    elements.scene.className = "weather-scene active";
+    elements.scene.className = "tempo-cena ativa";
     if (condition.scene) {
         elements.scene.classList.add(condition.scene);
     }
@@ -151,25 +154,46 @@ function createElement(tag, className, text) {
 }
 
 async function fetchJSON(url) {
+
     const response = await fetch(url);
+
     if (!response.ok) {
-        throw new Error("Não foi possível consultar o serviço meteorológico.");
+
+        throw new Error(
+            "Não foi possível consultar o serviço meteorológico."
+        );
+
     }
-    return response.json();
+    const data = await response.json();
+
+    if (data.error) {
+
+        throw new Error(
+            data.reason || "Erro ao consultar os dados meteorológicos."
+        );
+
+    }
+    return data;
+
 }
 
 async function searchCity(cityName) {
+
     const url = new URL(GEOCODING_API);
+
     url.search = new URLSearchParams({
         name: cityName,
-        count: "10",
+        count: 10,
         language: "pt",
-        fomrat: "json"
+        format: "json"
     });
-    const data = await fetchJSON(URL);
-    if (!data.results || data.results.length === 0) {
-        throw new Error("Cidade não encontrada. Confira o nome e tente novamente.");
+
+    const data = await fetchJSON(url);
+
+    if (!data.results || !data.results.length) {
+        throw new Error("Cidade não encontrada.");
     }
+
     return data.results;
 }
 
@@ -203,7 +227,7 @@ async function getForecast(city) {
 }
 
 function getLocationName(city) {
-    return [city.name, city.admin1, city.coontry]
+    return [city.name, city.admin1, city.country]
         .filter(Boolean)
         .filter((part, index, list) => list.indexOf(part) === index)
         .join(",");
@@ -243,20 +267,20 @@ function renderForecast(data) {
     elements.forecast.replaceChildren();
     daily.time.forEach((date, index) => {
         const condition = getWeatherInfo(daily.weather_code[index]);
-        const card = createElement("article", "forecast-card");
+        const card = createElement("article", "cartao-previsao");
         const day = createElement(
             "p",
-            "forecast-day",
+            "dia-previsao",
             index === 0 ? "hoje" : formatDate(date, { weekday: "short" })
         );
-        const icon = createElement("span", "foercast-icon", condition.icon);
+        const icon = createElement("span", "icone-previsao", condition.icon);
         icon.setAttribute("aria-label", condition.description);
         const description = createElement(
             "p",
-            "forecast-description",
+            "descricao-previsao",
             condition.description
         );
-        const temperatures = createElement("div", "forecast-temps");
+        const temperatures = createElement("div", "temperaturas-previsao");
         temperatures.append(
             createElement(
                 "strong",
@@ -272,7 +296,7 @@ function renderForecast(data) {
         const probability = daily.precipitation_probability_max[index];
         const rain = createElement(
             "p",
-            "rain-chance",
+            "chance-chuva",
             probability == null ? "Chuva: sem dados" : `☂ ${probability}% de chuva`
         );
         card.append(day, icon, description, temperatures, rain);
@@ -283,28 +307,36 @@ function renderForecast(data) {
 
 
 async function loadCity(city, announce = true) {
+
     setLoading(true);
+
     if (announce) {
         setMessage(`Buscando o clima de ${city.name}...`);
     }
 
     try {
         const data = await getForecast(city);
+
         if (!data.current || !data.daily) {
             throw new Error("A previsão retornada está incompleta.");
-        }
-
+        }      
         renderCurrentWeather(city, data);
-        renderForecast(data);
 
-        current = city;
+                renderForecast(data);
+        
+        currentCity = city;
+
         if (announce) {
             setMessage(
                 `Previsão atualizada para ${city.name}. Dados: Open-Meteo.`
             );
         }
     } catch (error) {
+
+        console.error("Erro ao carregar a cidade:", error);
+
         setMessage(error.message, true);
+
     } finally {
         setLoading(false);
     }
@@ -312,31 +344,47 @@ async function loadCity(city, announce = true) {
 
 
 async function handleSearch(event) {
+
     event.preventDefault();
+
     const query = elements.input.value.trim();
+
     if (!query) {
         setMessage("Digite o nome de uma cidade.", true);
         return;
     }
 
     setLoading(true);
+
     setMessage(`Procurando ${query}...`);
+
     try {
+
         const results = await searchCity(query);
+
         const city = results[0];
 
         await loadCity(city);
-        } catch (error) {
-            setMessage(error.message, true);
-            setLoading(false);
-        }
+
+    } catch (error) {
+
+        console.error("Erro na pesquisa:", error);
+
+        setMessage(error.message, true);
+
+    } finally {
+
+        setLoading(false);
+
+    }
+
 }
 
 const worldCities = [
     { name: "Lisboa", country: "Portugal" },
     { name: "Tóquio", country: "Japão"},
     { name: "Nova Iorque", country: "Estados Unidos"},
-    { Nmae: "Cidade do Cabo", country: "África do Sul"}
+    { name: "Cidade do Cabo", country: "África do Sul"}
 ];
 
 async function loadWorldCity(place) {
@@ -354,90 +402,187 @@ async function loadWorldCity(place) {
 }
 
 function renderWorldCard(result) {
+
     const { city, data } = result;
+
     const current = data.current;
+
     const condition = getWeatherInfo(
         current.weather_code,
         current.is_day
     );
 
-    const card = createElement("button", "world-card");
+    const card = createElement("button", "cartao-mundo");
+
     card.type = "button";
-    const title = createElement("h3", "", city.name);
-    const country = createElement("p", "world-country", city.country);
-    const weather = createElement("div", "world-weather");
-    const icon = createElement("span", "world-icon", condition.icon);
+    
+    const title = createElement(
+        "h3",
+        "",
+        city.name
+    );
+
+    // País
+    const country = createElement(
+        "p",
+        "pais-mundo",
+        city.country
+    );
+    
+    const weather = createElement(
+        "div",
+        "clima-mundo"
+    );
+
+    const icon = createElement(
+        "span",
+        "icone-mundo",
+        condition.icon
+    );
+
+    icon.setAttribute("aria-label", condition.description);
+
     const temperature = createElement(
         "span",
-        "world-temp",
+        "temperatura-mundo",
         formatTemperature(current.temperature_2m)
     );
 
     weather.append(icon, temperature);
+    
     const description = createElement(
         "p",
-        "world-description",
+        "descricao-mundo",
         condition.description
     );
-
+   
     const action = createElement(
         "span",
-        "world-action",
+        "acao-mundo",
         "Ver previsão completa ↗"
     );
-
-    card.append(title, country, weather, description, action);
+   
+    card.append(
+        title,
+        country,
+        weather,
+        description,
+        action
+    );
+    
     card.addEventListener("click", () => {
+
         elements.input.value = city.name;
+
         loadCity(city);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
     });
 
     return card;
+
 }
 
 async function renderWorldCities() {
-    elements.world.replaceChildren(
-        createElement("p", "muted", "Consultando cidades...")
-    );
-    const results = await Promise.all(worldCities.map(loadWorldCity));
-    const fragment = document.createDocumentFragment();
-    results.filter(Boolean).forEach((result) => {
-        fragment.append(renderWorldCard(result));
-    });
-    if (fragment.childNodes.length === 0) {
-        elements.world.replaceChildren(
-            createElement(
-                "p",
-                "muted",
-                "Não foi possível carregar as cidades. Verifique sua conexão."
-            )
-        );
-        return;
-    }
-    elements.world.replaceChildren(fragment);
+ 
+try {
+ 
+elements.world.replaceChildren(
+createElement(
+"p",
+"silenciado",
+"Consultando cidades..."
+)
+);
+ 
+const results = await Promise.all(
+worldCities.map(loadWorldCity)
+);
+ 
+const fragment =
+document.createDocumentFragment();
+ 
+results
+.filter(Boolean)
+.forEach(result => {
+fragment.append(
+renderWorldCard(result)
+);
+});
+ 
+if (fragment.childNodes.length === 0) {
+ 
+elements.world.replaceChildren(
+createElement(
+"p",
+"silenciado",
+"Não foi possível carregar as cidades."
+)
+);
+ 
+return;
 }
+ 
+elements.world.replaceChildren(fragment);
+ 
+} catch (error) {
+ 
+console.error(
+"Erro ao carregar cidades do mundo:",
+error
+);
+ 
+elements.world.replaceChildren(
+createElement(
+"p",
+"silenciado",
+"Não foi possível carregar as cidades. Tente novamente."
+)
+);
+}
+}
+
 let currentCity = null;
 let refreshInProgress = false;
 elements.form.addEventListener("submit", handleSearch);
 
 
 async function init() {
+    
+    elements.input.value = "Belo Horizonte";
 
-  
-   
- elements.input.value = "Belo Horizonte";
-    await Promise.allSettled([
-        (async () => {
-            const results = await searchCity("Belo Horizonte");
+    try {
+       
+        const results = await searchCity("Belo Horizonte");
+
+        if (!results.length) {
+            throw new Error("Não foi possível localizar Belo Horizonte.");
+        }
+
             await loadCity(results[0]);
-        })(),
-        renderWorldCities()
-    ]);
+
+    } catch (error) {
+
+        console.error("Erro na inicialização do clima:", error);
+
+        setMessage(
+            "Não foi possível carregar a previsão inicial.",
+            true
+        );
+
+    }
+    
+    renderWorldCities();
+
 }
 
-
 setInterval(async () => {
+
+ 
     if (
         document.visibilityState !== "visible" ||
         !currentCity ||
@@ -445,11 +590,28 @@ setInterval(async () => {
     ) {
         return;
     }
+
+  
     refreshInProgress = true;
+
     try {
+
         await loadCity(currentCity, false);
+
+    } catch (error) {
+
+        console.error(
+            "Erro na atualização automática:",
+            error
+        );
+
     } finally {
+
         refreshInProgress = false;
+
     }
+
 }, 15 * 60 * 1000);
+
 init();
+

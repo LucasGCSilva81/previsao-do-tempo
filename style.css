@@ -70,7 +70,7 @@ input:focus-visible {
     position: relative;
     z-index: 1;
     width: min(1120px, calc(100% - 40px));
-    margin: 0;
+    margin: 0 auto;
 }
 
 .barra-topo {
@@ -235,11 +235,6 @@ input:focus-visible {
 .menu-atual {
     position: relative;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 28px;
-    padding: clamp(24px, 4vw, 42px);
-    animation: rise-in 0.65s ease both;
 }
 
 .menu-atual::after {
@@ -384,7 +379,7 @@ input:focus-visible {
     gap: 14px;
 }
 
-.forecast-card {
+.cartao-previsao {
     padding: 23px 12px;
     text-align: center;
     background: var(--panel);
@@ -394,20 +389,20 @@ input:focus-visible {
     animation: rise-in 0.55s ease both;
 }
 
-.forecast-card:hover,
-.world-card:hover {
+.cartao-previsao:hover,
+.cartao-mundo:hover {
     transform: translateY(-5px);
     border-color: rgba(57, 198, 165, 0.7);
     background: rgba(30, 88, 74, 0.92);
 }
 
-.forecast-day {
+.dia-previsao {
     color: var(--muted);
     font-size: 0.82rem;
     font-weight: 650;
 }
 
-.forecast-icon {
+.icone-previsao {
     display: block;
     margin: 18px 0;
     color: var(--solar);
@@ -415,13 +410,13 @@ input:focus-visible {
     line-height: 1.2;
 }
 
-.forecast-description {
+.descricao-previsao {
     min-height: 36px;
     color: var(--muted);
     font-size: 0.75rem;
 }
 
-.forecast-temps {
+.temperaturas-previsao {
     display: flex;
     justify-content: center;
     gap: 12px;
@@ -429,15 +424,15 @@ input:focus-visible {
     font-size: 0.95rem;
 }
 
-.forecast-temps strong {
+.temperaturas-previsao strong {
     color: var(--text);
 }
 
-.forecast-temps span {
+.temperaturas-previsao span {
     color: var(--muted);
 }
 
-.rain-chance {
+.chance-chuva {
     margin-top: 12px;
     color: var(--turquoise);
     font-size: 0.75rem;
@@ -454,13 +449,13 @@ input:focus-visible {
     letter-spacing: 1px;
 }
 
-.grade.mundo {
+.grade-mundo {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
 }
 
-.world-card {
+.cartao-mundo {
     min-width: 0;
     padding: 22px 18px;
     background: var(--panel);
@@ -471,19 +466,19 @@ input:focus-visible {
     animation: rise-in 0.55s ease both;
 }
 
-.world-card h3 {
+.cartao-mundo h3 {
     overflow-wrap: anywhere;
     font-size: 1rem;
 }
 
-.world-country {
+.pais-mundo {
     min-height: 22px;
     margin-top: 3px;
     color: var(--muted);
     font-size: 0.76rem;
 }
 
-.world-weather {
+.clima-mundo {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -491,24 +486,24 @@ input:focus-visible {
     margin-top: 18px;
 }
 
-.world-icon {
+.icone-mundo {
     color: var(--solar);
     font-size: 2.5rem;
 }
 
-.world-temp {
+.temperatura-mundo {
     font-size: 1.9rem;
     font-weight: 750;
     letter-spacing: -1px;
 }
 
-.world-description {
+.descricao-mundo {
     margin-top: 12px;
     color: var(--muted);
     font-size: 0.8rem;
 }
 
-.world-action {
+.acao-mundo {
     display: block;
     margin-top: 15px;
     color: var(--turquoise);
@@ -559,7 +554,7 @@ input:focus-visible {
     transition: opacity 0.7s ease;
 }
 
-.tempo-cena.active {
+.tempo-cena.ativa {
     opacity: 1;
 }
 
@@ -632,7 +627,8 @@ input:focus-visible {
     background: rgba(214, 235, 255, 0.12);
 }
 
-.tempo-cena.weather-sunny .sun, .tempo-cena.weather-clear .sun {
+.tempo-cena.weather-sunny .sun,
+.tempo-cena.weather-clear .sun {
     opacity: 1;
 }
 
@@ -685,7 +681,7 @@ input:focus-visible {
 }
 
 @keyframes snowfall {
-    from { background-position: 0- 50px; }
+    from { background-position: 0 -50px;}
     to { background-position: 25px 100px;}
 }
 
@@ -711,7 +707,7 @@ input:focus-visible {
         gap: 8px;
     }
 
-    .forecast-card {
+    .cartao-previsao {
         padding: 18px 7px;
     }
 }
@@ -719,7 +715,8 @@ input:focus-visible {
 
 @media (max-width: 560px) {
     .aplicativa {
-        width: calc(100% - 28%);
+        width: calc(100% - 28px);
+        margin: 0 auto;
     }
 
     .barra-topo {
@@ -757,10 +754,12 @@ input:focus-visible {
     }
 
     .tempo-atual {
-        padding: 22px 16px;
-        gap: 28px;
-        border-radius: 20px;
-    }
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 28px;
+    padding: clamp(24px, 4vw, 42px);
+    animation: rise-in 0.65s ease both;
+}
 
     .linha-temperatura {
         gap: 14px;
@@ -794,11 +793,11 @@ input:focus-visible {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .forecast-card:last-child {
+    .cartao-previsao:last-child {
         grid-column: 1 / -1;
     } 
     
-    .forecast-card {
+    .cartao-previsao {
         padding: 18px 12px;
     }
 
@@ -806,15 +805,15 @@ input:focus-visible {
         gap: 10px;
     } 
 
-    .world-card {
+    .cartao-mundo {
         padding: 16px 12px;
     }
 
-    .world-temp {
+    .temperatura-mundo {
         font-size: 1.6rem;
     }
 
-    .world-icon {
+    .icone-mundo {
         font-size: 2rem;
     }
 

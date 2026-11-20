@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="theme-color" content="#102F2A">
     <meta name="description" content="WeatherVerse: previsão do tempo global com animações e dados meteorológicos.">
+
     <link rel="stylesheet" href="./style.css">
+
     <title>WeatherVerse | Clima pelo mundo</title>
 </head>
 
@@ -44,7 +47,7 @@
                     <label class="apenas" for="entradaCidade">Digite uma cidade</label>
                     <input id="entradaCidade" type="search" placeholder="Digite uma cidade, ex: Londres"
                         autocomplete="off" required>
-                    <button type="submit" id="botao-procura">
+                    <button type="submit" id="botaoProcura">
                         Explorar <span aria-hidden="true">↗</span></button>
                 </form>
                 <p class="pesquisa-mensagem" id="pesquisaMensagem" role="status" aria-live="polite">
@@ -52,29 +55,40 @@
                 </p>
             </section>
 
-            <section class="tempo-atual painel" id="tempoAtual" aria-labelledby="titulo-atual">
+            <section class="tempo-atual painel" id="tempoAtual" aria-labelledby="tituloAtual">
+
                 <div class="menu-atual">
 
                     <div class="linha-local">
+
                         <span class="span-local">⌖</span>
+
                         <div>
                             <h2 id="tituloAtual">Carregando cidade...</h2>
                             <p id="dataAtual">Consultando previsão</p>
                         </div>
+
                     </div>
 
                     <div class="linha-temperatura">
 
                         <span class="tempo-icone" id="iconeAtual" aria-hidden="true">☀</span>
+
                         <div>
                             <p class="temperatura" id="temperaturaAtual">--°</p>
                             <p class="descricao-tempo" id="tempoDescricao">Aguardando dados</p>
                         </div>
+
                     </div>
-                    <p class="sensacao-termica">Sensação térmica de <strong id="sensacaoTermica">--°C</strong></p>
+
+                    <p class="sensacao-termica">
+                        Sensação térmica de <strong id="sensacaoTermica">--°C</strong>
+                    </p>
+
                 </div>
 
                 <div class="tempo-detalhes">
+
                     <article class="cartao-detalhes">
                         <span class="detalhe-icone">◌</span>
                         <p>Umidade</p>
@@ -94,6 +108,7 @@
                     </article>
 
                 </div>
+
             </section>
 
             <section class="secao-previsao">
@@ -125,13 +140,26 @@
         </main>
 
         <footer class="footer">
-            <a href="#" class="marca marca-footer">Clima<span class="marca-raio">PeloMundo</span></a>
+
+            <a href="#" class="marca marca-footer">
+                Clima<span class="marca-raio">PeloMundo</span>
+            </a>
+
             <p>Feito para explorar o mundo, um dia de cada vez.</p>
-            <p class="data-credito">Dados metereológicos: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p>
+
+            <p class="data-credito">
+                Dados meteorológicos:
+                <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">
+                    Open-Meteo
+                </a>
+            </p>
+
         </footer>
+
     </div>
 
-    <script src="./scripts.js"></script>
+    <script src="./scripts.js" defer></script>
+
 </body>
 
 </html>
